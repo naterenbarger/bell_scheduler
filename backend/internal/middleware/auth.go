@@ -8,7 +8,8 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-func AuthMiddleware() gin.HandlerFunc {
+// Auth creates a middleware that validates JWT tokens
+func Auth(jwtSecret string) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" {
@@ -27,8 +28,10 @@ func AuthMiddleware() gin.HandlerFunc {
 
 		tokenString := parts[1]
 		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-			// TODO: Replace with actual secret key from environment variables
-			return []byte("your-secret-key"), nil
+			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+				return nil, jwt.ErrSignatureInvalid
+			}
+			return []byte(jwtSecret), nil
 		})
 
 		if err != nil || !token.Valid {
@@ -45,12 +48,17 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		c.Set("userID", uint(claims["user_id"].(float64)))
+		// Convert user_id from float64 to int64
+		userID := int64(claims["user_id"].(float64))
+		c.Set("user_id", userID)
+		c.Set("username", claims["username"].(string))
 		c.Set("role", claims["role"].(string))
+		c.Set("force_password_change", claims["force_password_change"].(bool))
 		c.Next()
 	}
 }
 
+// AdminRequired creates a middleware that requires admin privileges
 func AdminRequired() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		role, exists := c.Get("role")
