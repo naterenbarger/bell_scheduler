@@ -51,10 +51,14 @@ frontend/
 ## Features
 
 - User authentication and authorization
-- Schedule management
-- Time slot configuration
-- Global settings
+- Advanced schedule management with support for:
+  - Default schedules (automatically activated daily)
+  - Active schedules (currently running)
+  - Temporary schedules (reset at midnight)
+- Time slot configuration with day-specific settings
+- Global settings management
 - Admin user management
+- Dashboard with current schedule status
 - Responsive design with Vuetify
 - Form validation with vee-validate
 - Date/time utilities with moment.js
@@ -75,4 +79,4 @@ The application follows these patterns:
 - `npm run build` - Build for production
 - `npm run lint` - Lint code
 - `npm run test:unit` - Run unit tests
-- `npm run test:e2e` - Run end-to-end tests 
+- `npm run test:e2e` - Run end-to-end tests

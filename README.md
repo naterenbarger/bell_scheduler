@@ -5,11 +5,14 @@ A web-based application for managing bell schedules on a Raspberry Pi. The appli
 ## Features
 
 - User authentication and authorization
-- Schedule management with multiple time slots
+- Advanced schedule management with multiple time slots
+- Schedule management system with three types:
+  - Default schedules: Automatically activated at midnight each day
+  - Active schedules: Currently running schedule that controls bell ringing
+  - Temporary schedules: Active for the current day only, reset at midnight
 - Global configurable bell ring duration
-- Default schedule option
 - Real-time bell triggering
-- Email notifications
+- Database migration system
 - Responsive web interface
 
 ## Hardware Requirements
@@ -103,6 +106,21 @@ A web-based application for managing bell schedules on a Raspberry Pi. The appli
    ```bash
    cd backend
    make migrate
+   ```
+
+   The project includes a migration system for managing database schema changes. You can use the following commands:
+   ```bash
+   # Create a new migration
+   go run cmd/migrate/main.go create [migration_name]
+   
+   # Apply all pending migrations
+   go run cmd/migrate/main.go up
+   
+   # Rollback the last migration
+   go run cmd/migrate/main.go down
+   
+   # Show migration status
+   go run cmd/migrate/main.go status
    ```
 
 ### Configuration
@@ -202,4 +220,4 @@ A web-based application for managing bell schedules on a Raspberry Pi. The appli
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License - see the LICENSE file for details.

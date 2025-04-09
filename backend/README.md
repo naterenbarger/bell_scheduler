@@ -63,7 +63,10 @@ The application uses the following patterns:
 - GET `/api/schedules/:id` - Get schedule details
 - PUT `/api/schedules/:id` - Update schedule
 - DELETE `/api/schedules/:id` - Delete schedule
-- POST `/api/schedules/:id/set-default` - Set default schedule
+- PUT `/api/schedules/:id/default` - Set default schedule
+- PUT `/api/schedules/:id/active` - Set active schedule
+- PUT `/api/schedules/:id/temporary` - Set temporary schedule
+- POST `/api/schedules/:id/trigger` - Manually trigger a schedule
 
 ### Schedule Times
 - GET `/api/schedules/:scheduleId/times` - List schedule times
@@ -79,4 +82,4 @@ The application uses the following patterns:
 - GET `/api/admin/users` - List all users
 - POST `/api/admin/users` - Create user
 - PUT `/api/admin/users/:id` - Update user
-- DELETE `/api/admin/users/:id` - Delete user 
+- DELETE `/api/admin/users/:id` - Delete user
