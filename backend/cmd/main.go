@@ -94,7 +94,9 @@ func main() {
 	router.Use(middleware.Logger())
 
 	// Serve frontend static files
-	router.Static("/assets", "../frontend/dist/assets")
+	router.Static("/js", "../frontend/dist/js")
+	router.Static("/css", "../frontend/dist/css")
+	router.Static("/fonts", "../frontend/dist/fonts")
 	router.StaticFile("/favicon.ico", "../frontend/dist/favicon.ico")
 	router.StaticFile("/", "../frontend/dist/index.html")
 
