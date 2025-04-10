@@ -1,0 +1,15 @@
+[Unit]
+Description=Bell Scheduler Service
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/bell_scheduler/backend
+ExecStart=/home/pi/bell_scheduler/backend/bin/bell_scheduler
+Restart=on-failure
+RestartSec=10
+EnvironmentFile=/home/pi/bell_scheduler/backend/.env
+
+[Install]
+WantedBy=multi-user.target

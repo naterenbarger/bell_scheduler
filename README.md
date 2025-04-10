@@ -162,6 +162,17 @@ A web-based application for managing bell schedules on a Raspberry Pi. The appli
    make run
    ```
 
+3. Running as a Systemd Service:
+   
+   To run the Bell Scheduler as a systemd service that starts automatically at boot:
+   
+   ```bash
+   # Follow the instructions in the systemd setup guide
+   cat systemd_setup.md
+   ```
+   
+   See [systemd_setup.md](systemd_setup.md) for detailed instructions on setting up the Bell Scheduler as a systemd service.
+
 ## Testing
 
 1. Backend Tests:
