@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/signal"
 	"strconv"
+	"strings"
 	"syscall"
 
 	"bell_scheduler/internal/config"
@@ -91,6 +92,22 @@ func main() {
 	// Add middleware
 	router.Use(middleware.CORS())
 	router.Use(middleware.Logger())
+
+	// Serve frontend static files
+	router.Static("/assets", "../frontend/dist/assets")
+	router.StaticFile("/favicon.ico", "../frontend/dist/favicon.ico")
+	router.StaticFile("/", "../frontend/dist/index.html")
+
+	// Handle SPA routes - serve index.html for any unmatched routes
+	router.NoRoute(func(c *gin.Context) {
+		// Only serve index.html for non-API routes
+		if !strings.HasPrefix(c.Request.URL.Path, "/api/") {
+			c.File("../frontend/dist/index.html")
+			return
+		}
+		// Let 404 happen for API routes
+		c.Next()
+	})
 
 	// Public routes
 	router.POST("/api/auth/login", authHandler.Login)
