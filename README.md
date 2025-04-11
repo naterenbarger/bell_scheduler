@@ -76,6 +76,11 @@ A web-based application for managing bell schedules on a Raspberry Pi. The appli
    - Node.js 14.x or later
    - npm or yarn
 
+Install on the Raspberry Pi:
+   ```bash
+   sudo apt install golang sqlite3 nodejs npm
+   ```
+
 ### Installation
 
 1. Clone the repository:
